@@ -1,0 +1,21 @@
+# Schul-App: Login-Schutz
+# Alle App-Seiten laufen über guard.php, das prüft, ob man angemeldet ist.
+
+Options -Indexes
+DirectoryIndex guard.php
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+
+# Interne Dateien sperren
+RewriteRule ^(config\.php|data(/.*)?|lib(/.*)?|\.git.*|README\.md)$ - [F,L]
+
+# Öffentliche Dateien (Login-Seiten, Build-Dateien, Icons)
+RewriteRule ^(guard|login|register|logout|admin)\.php$ - [L]
+RewriteRule ^(_next|icons)/ - [L]
+RewriteRule ^(favicon\.ico|favicon\.png|manifest\.webmanifest|sw\.js)$ - [L]
+
+# Alles andere (Seiten + Seitendaten) nur mit Anmeldung
+RewriteRule ^ guard.php [L,QSA]
+</IfModule>

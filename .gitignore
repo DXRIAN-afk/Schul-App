@@ -1,0 +1,3 @@
+# Datenbank und Sessions nicht ins Git
+data/*
+!data/.htaccess
