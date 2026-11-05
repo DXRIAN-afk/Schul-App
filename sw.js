@@ -12,7 +12,7 @@
 // respondWith() resolving to undefined or a rejected promise is what produces Chrome's
 // "This page couldn't load" error, so every fallback path ends in a real Response.
 
-const CACHE_VERSION = "v8";
+const CACHE_VERSION = "v9";
 const CACHE_NAME = `schulorg-${CACHE_VERSION}`;
 
 const APP_SHELL = [
