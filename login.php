@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/lib/auth.php';
+require_once __DIR__ . '/lib/konto.php';
 require_once __DIR__ . '/lib/layout.php';
 
 start_session();
@@ -35,6 +35,7 @@ page_header('Anmelden');
   <p class="sub">Bitte melde dich an, um die App zu benutzen.</p>
   <?php if (isset($_GET['registered'])): ?><div class="success">Registrierung erfolgreich! Du kannst dich jetzt anmelden.</div><?php endif; ?>
   <?php if (isset($_GET['loggedout'])): ?><div class="success">Du wurdest abgemeldet.</div><?php endif; ?>
+  <?php if (isset($_GET['konto_error'])): ?><div class="error"><?= e((string) $_GET['konto_error']) ?></div><?php endif; ?>
   <?php if ($error): ?><div class="error"><?= e($error) ?></div><?php endif; ?>
   <form method="post" action="/login.php" autocomplete="on">
     <input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>">
@@ -45,6 +46,7 @@ page_header('Anmelden');
     <input type="password" id="password" name="password" autocomplete="current-password" required>
     <button type="submit">Anmelden</button>
   </form>
+  <?= konto_button($next) ?>
   <?php if (ALLOW_REGISTRATION): ?>
   <p class="alt">Noch kein Konto? <a href="/register.php">Jetzt registrieren</a></p>
   <?php endif; ?>

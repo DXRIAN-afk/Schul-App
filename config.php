@@ -33,6 +33,16 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 
 // ---------------------------------------------------------------
+// Anmeldung mit dem gemeinsamen Konto (dartx account, account.da-rtx.ch)
+// KONTO_URL leer lassen, um den Knopf «Mit dartx account anmelden» auszublenden.
+// Die Rücksprung-Adresse https://<deine-domain>/sso.php muss bei dartx account
+// in lib/config.php unter clients → schul-app → redirect_uris eingetragen sein.
+// ---------------------------------------------------------------
+define('KONTO_URL', 'https://account.da-rtx.ch');
+define('KONTO_CLIENT_ID', 'schul-app');
+define('KONTO_NAME', 'dartx account');
+
+// ---------------------------------------------------------------
 // Sonstiges
 // ---------------------------------------------------------------
 // Wie lange man angemeldet bleibt (in Tagen)

@@ -35,6 +35,11 @@ function page_header(string $title, bool $compact = false): void
   a{color:#4f46e5}
   .error{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;padding:10px 12px;border-radius:10px;font-size:14px;margin-bottom:6px}
   .success{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;padding:10px 12px;border-radius:10px;font-size:14px;margin-bottom:6px}
+  .divider{display:flex;align-items:center;gap:10px;margin:20px 0 0;color:#94a3b8;font-size:13px}
+  .divider::before,.divider::after{content:"";flex:1;height:1px;background:#e2e8f0}
+  .btn.konto{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:14px;background:#fff;color:#0f172a;border:1px solid #cbd5e1}
+  .btn.konto:hover{background:#fff7ed;border-color:#E8781F}
+  .tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;background:#fff7ed;color:#c2410c;border:1px solid #fed7aa}
   .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0}
   .stat{border:1px solid #e2e8f0;border-radius:12px;padding:12px 14px;background:#f8fafc}
   .stat .n{font-size:26px;font-weight:700;color:#4f46e5}
@@ -55,6 +60,9 @@ function page_header(string $title, bool $compact = false): void
     .stat{background:#020617;border-color:#1e293b}
     th,td{border-color:#1e293b}
     .btn.secondary{background:#1e293b;color:#f1f5f9}
+    .btn.konto{background:#020617;color:#f1f5f9;border-color:#334155}
+    .btn.konto:hover{background:#1c1917}
+    .divider::before,.divider::after{background:#1e293b}
     .btn.secondary:hover{background:#334155}
     a{color:#818cf8}
   }

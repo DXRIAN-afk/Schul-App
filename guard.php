@@ -3,7 +3,7 @@
  * Schützt alle Seiten der App: Nur angemeldete Nutzer bekommen die Dateien.
  * Wird über die .htaccess für jede Anfrage aufgerufen, die nicht öffentlich ist.
  */
-require_once __DIR__ . '/lib/auth.php';
+require_once __DIR__ . '/lib/konto.php';
 
 $base = __DIR__;
 $path = rawurldecode((string) parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH));
@@ -59,6 +59,15 @@ if ($file && !isset($types[$ext])) {
 }
 
 $user = current_user();
+if ($user !== null && ($kontoMsg = konto_check()) !== null) {
+    // Bei dartx account gesperrt, gelöscht oder Zugriff entfernt
+    $user = null;
+    if ($ext === 'html') {
+        header('Cache-Control: no-store');
+        header('Location: /login.php?konto_error=' . rawurlencode($kontoMsg));
+        exit;
+    }
+}
 if ($user === null) {
     if ($ext === 'html') {
         $query = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_QUERY);
@@ -96,9 +105,17 @@ $name = e($user['username']);
 $adminLink = $user['is_admin']
     ? '<a href="/admin.php" onclick="window.open(\'/admin.php\',\'schulapp_admin\',\'width=560,height=680\');return false;" style="color:#4f46e5;font-weight:600;text-decoration:none">Admin</a><span style="opacity:.4">·</span>'
     : '';
+$kontoLink = '';
+if (konto_enabled() && !$user['is_admin']) {
+    $st = db()->prepare('SELECT konto_sub FROM users WHERE id = ?');
+    $st->execute([$user['id']]);
+    if (!$st->fetchColumn()) {
+        $kontoLink = '<a href="/sso.php?link=1" title="Mit ' . e(KONTO_NAME) . ' verbinden" style="color:#c2410c;text-decoration:none">Mit dartx verbinden</a><span style="opacity:.4">·</span>';
+    }
+}
 $bar = <<<HTML
 <div id="schulapp-auth" style="position:fixed;top:8px;right:8px;z-index:2147483000;display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.92);border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(15,23,42,.1);font:500 12px system-ui,-apple-system,sans-serif;color:#334155">
-<span>👤 {$name}</span><span style="opacity:.4">·</span>{$adminLink}<a href="/logout.php" style="color:#dc2626;text-decoration:none">Abmelden</a>
+<span>👤 {$name}</span><span style="opacity:.4">·</span>{$adminLink}{$kontoLink}<a href="/logout.php" style="color:#dc2626;text-decoration:none">Abmelden</a>
 </div>
 HTML;
 

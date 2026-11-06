@@ -12,7 +12,7 @@ RewriteBase /
 RewriteRule ^(config\.php|data(/.*)?|lib(/.*)?|\.git.*|README\.md)$ - [F,L]
 
 # Öffentliche Dateien (Login-Seiten, Build-Dateien, Icons)
-RewriteRule ^(guard|login|register|logout|admin)\.php$ - [L]
+RewriteRule ^(guard|login|register|logout|admin|sso)\.php$ - [L]
 RewriteRule ^(_next|icons)/ - [L]
 RewriteRule ^(favicon\.ico|favicon\.png|manifest\.webmanifest|sw\.js)$ - [L]
 

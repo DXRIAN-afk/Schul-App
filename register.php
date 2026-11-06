@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/lib/auth.php';
+require_once __DIR__ . '/lib/konto.php';
 require_once __DIR__ . '/lib/layout.php';
 
 start_session();
@@ -42,6 +42,7 @@ page_header('Registrieren');
     <input type="password" id="password2" name="password2" minlength="6" autocomplete="new-password" required>
     <button type="submit">Konto erstellen</button>
   </form>
+  <?= konto_button('/') ?>
   <p class="alt">Schon ein Konto? <a href="/login.php">Anmelden</a></p>
 <?php endif; ?>
 <?php

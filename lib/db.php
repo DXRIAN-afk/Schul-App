@@ -59,7 +59,36 @@ function db(): PDO
         $pdo->exec('CREATE INDEX IF NOT EXISTS idx_logins_created ON logins(created_at)');
     }
 
+    add_konto_columns($pdo);
+
     return $pdo;
+}
+
+/** Spalten für dartx account ergänzen (auch bei schon bestehenden Datenbanken). */
+function add_konto_columns(PDO $pdo): void
+{
+    $mysql = DB_DRIVER === 'mysql';
+    $existing = [];
+    if ($mysql) {
+        foreach ($pdo->query('SHOW COLUMNS FROM users') as $c) {
+            $existing[] = $c['Field'];
+        }
+    } else {
+        foreach ($pdo->query('PRAGMA table_info(users)') as $c) {
+            $existing[] = $c['name'];
+        }
+    }
+    $columns = $mysql
+        ? ['konto_sub' => 'VARCHAR(48) NULL', 'konto_token' => 'CHAR(64) NULL', 'konto_checked_at' => 'INT UNSIGNED NOT NULL DEFAULT 0']
+        : ['konto_sub' => 'TEXT NULL', 'konto_token' => 'TEXT NULL', 'konto_checked_at' => 'INTEGER NOT NULL DEFAULT 0'];
+    foreach ($columns as $name => $type) {
+        if (!in_array($name, $existing, true)) {
+            $pdo->exec("ALTER TABLE users ADD COLUMN $name $type");
+        }
+    }
+    if (!in_array('konto_sub', $existing, true)) {
+        $pdo->exec('CREATE UNIQUE INDEX ' . ($mysql ? '' : 'IF NOT EXISTS ') . 'idx_users_konto_sub ON users(konto_sub)');
+    }
 }
 
 function now(): string

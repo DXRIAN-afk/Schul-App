@@ -33,8 +33,9 @@ $usersToday   = $count('SELECT COUNT(DISTINCT user_id) FROM logins WHERE created
 $usersWeek    = $count('SELECT COUNT(DISTINCT user_id) FROM logins WHERE created_at >= ?', [$weekAgo]);
 $loginsTotal  = $count('SELECT COUNT(*) FROM logins');
 $newToday     = $count('SELECT COUNT(*) FROM users WHERE created_at >= ?', [$today]);
+$kontoUsers   = $count('SELECT COUNT(*) FROM users WHERE konto_sub IS NOT NULL');
 
-$stmt = $pdo->prepare('SELECT u.id, u.username, u.created_at, u.last_login, u.last_seen,
+$stmt = $pdo->prepare('SELECT u.id, u.username, u.created_at, u.last_login, u.last_seen, u.konto_sub,
         (SELECT COUNT(*) FROM logins l WHERE l.user_id = u.id) AS login_count
     FROM users u
     ORDER BY (u.last_login IS NULL), u.last_login DESC, u.created_at DESC');
@@ -62,6 +63,7 @@ page_header('Admin', true);
     <div class="stat"><div class="n"><?= $usersWeek ?></div><div class="l">Angemeldet in den letzten 7 Tagen</div></div>
     <div class="stat"><div class="n"><?= $loginsTotal ?></div><div class="l">Anmeldungen insgesamt</div></div>
     <div class="stat"><div class="n"><?= $newToday ?></div><div class="l">Heute neu registriert</div></div>
+    <div class="stat"><div class="n"><?= $kontoUsers ?></div><div class="l">Mit <?= e(KONTO_NAME) ?> verbunden</div></div>
   </div>
 
   <h1 style="font-size:16px;margin-top:22px">Alle Nutzer</h1>
@@ -74,7 +76,7 @@ page_header('Admin', true);
       <tbody>
       <?php foreach ($users as $u): $on = $u['last_seen'] && $u['last_seen'] >= $onlineSince; ?>
         <tr>
-          <td><span class="dot<?= $on ? ' on' : '' ?>" title="<?= $on ? 'online' : 'offline' ?>"></span><?= e($u['username']) ?></td>
+          <td><span class="dot<?= $on ? ' on' : '' ?>" title="<?= $on ? 'online' : 'offline' ?>"></span><?= e($u['username']) ?><?= $u['konto_sub'] ? ' <span class="tag">dartx</span>' : '' ?></td>
           <td><?= e(fmt($u['created_at'])) ?></td>
           <td><?= e(fmt($u['last_login'])) ?></td>
           <td><?= (int) $u['login_count'] ?></td>
