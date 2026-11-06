@@ -103,7 +103,7 @@ if ($ext !== 'html') {
 // Kleine Leiste mit Benutzername, Abmelden und (für Admin) dem Admin-Fenster einfügen
 $name = e($user['username']);
 $adminLink = $user['is_admin']
-    ? '<a href="/admin.php" onclick="window.open(\'/admin.php\',\'schulapp_admin\',\'width=560,height=680\');return false;" style="color:#4f46e5;font-weight:600;text-decoration:none">Admin</a><span style="opacity:.4">·</span>'
+    ? '<a href="/admin.php" onclick="window.open(\'/admin.php\',\'schulapp_admin\',\'width=560,height=680\');return false;" style="color:#ea580c;font-weight:600;text-decoration:none">Admin</a><span style="opacity:.4">·</span>'
     : '';
 $kontoLink = '';
 if (konto_enabled() && !$user['is_admin']) {
