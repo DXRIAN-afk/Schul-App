@@ -18,7 +18,7 @@ d:X
 d:C
 8:{}
 9:"$0:f:0:1:1:children:1:children:0:props:children:0:props:serverProvidedParams:params"
-f:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1, maximum-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#4f46e5"}]]
+f:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1, maximum-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#f97316"}]]
 13:I[27201,["/_next/static/chunks/2yrc9k7-dwmt7.js"],"IconMark"]
 c:null
 11:[["$","title","0",{"children":"SchulOrganizer"}],["$","meta","1",{"name":"description","content":"Stundenplan, Hausaufgaben, Prüfungsplaner und Notenrechner in einer App."}],["$","meta","2",{"name":"application-name","content":"SchulOrganizer"}],["$","link","3",{"rel":"manifest","href":"/manifest.webmanifest","crossOrigin":"$undefined"}],["$","meta","4",{"name":"mobile-web-app-capable","content":"yes"}],["$","meta","5",{"name":"apple-mobile-web-app-title","content":"SchulOrganizer"}],["$","meta","6",{"name":"apple-mobile-web-app-status-bar-style","content":"default"}],["$","link","7",{"rel":"icon","href":"/favicon.ico?favicon.2vob68tjqpejf.ico","sizes":"256x256","type":"image/x-icon"}],["$","link","8",{"rel":"icon","href":"/icons/favicon-16.png","sizes":"16x16","type":"image/png"}],["$","link","9",{"rel":"icon","href":"/icons/favicon-32.png","sizes":"32x32","type":"image/png"}],["$","link","10",{"rel":"icon","href":"/icons/icon-192.png","sizes":"192x192","type":"image/png"}],["$","link","11",{"rel":"apple-touch-icon","href":"/icons/apple-touch-icon.png","sizes":"180x180","type":"image/png"}],["$","$L13","12",{}]]
