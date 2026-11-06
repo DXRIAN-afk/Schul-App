@@ -12,7 +12,7 @@
 // respondWith() resolving to undefined or a rejected promise is what produces Chrome's
 // "This page couldn't load" error, so every fallback path ends in a real Response.
 
-const CACHE_VERSION = "v7";
+const CACHE_VERSION = "v9";
 const CACHE_NAME = `schulorg-${CACHE_VERSION}`;
 
 const APP_SHELL = [
@@ -142,6 +142,9 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
+
+  // Login, Registrierung, Abmelden und Admin immer direkt vom Server laden (nie cachen).
+  if (url.pathname.endsWith(".php")) return;
 
   if (isNavigationRequest(request)) {
     event.respondWith(networkFirst(request, "/offline"));
